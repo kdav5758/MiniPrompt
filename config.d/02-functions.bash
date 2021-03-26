@@ -1,6 +1,5 @@
-# shellcheck shell=bash source="$HOME"
+#!/bin/bash
 
 exportfile() {
-  # shellcheck disable=SC2046
   export $(grep -v '^#' "${1:-.env}" | xargs)
 }

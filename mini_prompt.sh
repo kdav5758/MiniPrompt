@@ -4,13 +4,52 @@
 success_symbol="λ"
 error_symbol="✗"
 reset="\[\e[m\]"
+this="$(basename "${BASH_SOURCE[0]}")"
 skip_init=false
-GIT_PROMPT=false
-KUBU_PROMPT=false
+
+# main functionalities
 ssh_prompt=true
 my_bin=false
 add_exit=true
-this_basename=`basename "$0"`
+
+# extensions
+extensions_main=false
+GIT_PROMPT=false
+KUBE_PROMPT=false
+
+script_help=$( cat << EOF
+
+This script simplifies the process of changing MiniPrompt's configuration variables
+on the fly for the current terminal session
+
+Usage:
+    #0: ${this} [arg] <modifier(s)>
+    #1: ${this} [flag]
+Arguments:
+    ex, exe,extensions,extensions_main              Modify 'extensions_main' var
+    gp, git,git_prompt,GIT_PROMPT                   Modify 'GIT_PROMPT' var
+    kb, kube,kubernetes_prompt,KUBE_PROMPT          Modify 'KUBE_PROMPT' var
+    mb, b,my_bin,MY_BIN                             Modify 'MY_BIN' var
+    ae, add_exit,ADD_EXIT                           Modify 'add_exit' var
+    si, skip_init,SKIP_INIT                         Modify 'skip_init' var
+Modifiers: (only for arguments)
+    f/false/FALSE                                   Disables [arg]
+    t/true/TRUE                                     Enables [arg]
+Flags:
+    -h,--help                                       See this help message.
+    -d, -dis,-disable,-DISABLE                      Disable MiniPrompt
+
+Examples:
+    #0: $this gp t
+        Explanation: This will export the 'GIT_PROMPT' variable as true (enables it to show branch on prompt)
+    #1: $this ex f
+        Explanation: This will export the 'extensions_main' variable as false (disables all extensions)
+    #2: $this ae t
+        Explanation: This will export the 'add_exit' variable as true (enables exit status to be shown on prompt)
+
+EOF
+)
+
 
 #-------------------=== Colors ===-------------------------------
 # main
@@ -23,24 +62,27 @@ gray="\[\e[0;37m\]"
 # \[\033[<num_for_syle>;<num_for_color>m\] = color
 # e.g: \[\033[02;32m\] = green text in italics
 # \[\033[00m\]
-invisible="\[\033[01;30m\]"
-white="\[\033[00m\]"
-green="\[\033[01;32m\]"
-red="\[\033[01;31m\]"
-yellow="\[\033[01;33m\]"
-blue="\[\033[01;34m\]"
-purple="\[\033[01;35m\]"
-cyan="\[\033[01;36m\]"
 
-bright_white="\[\033[01;37m\]"
-white_text_over_red="\[\033[01;41m\]"
-white_text_over_gree="\[\033[01;42m\]"
-white_text_over_yellow="\[\033[01;43m\]"
-white_text_over_blue="\[\033[01;43m\]"
-white_text_over_purple="\[\033[01;43m\]"
-white_text_over_cyan="\[\033[01;43m\]"
-white_text_over_gray="\[\033[01;43m\]"
-white_text_over_yellow="\[\033[01;43m\]"
+# uncomment the ones you'd like to use :)
+
+# invisible="\[\033[01;30m\]"
+# white="\[\033[00m\]"
+# green="\[\033[01;32m\]"
+# red="\[\033[01;31m\]"
+# yellow="\[\033[01;33m\]"
+# blue="\[\033[01;34m\]"
+# purple="\[\033[01;35m\]"
+# cyan="\[\033[01;36m\]"
+
+# bright_white="\[\033[01;37m\]"
+# white_text_over_red="\[\033[01;41m\]"
+# white_text_over_gree="\[\033[01;42m\]"
+# white_text_over_yellow="\[\033[01;43m\]"
+# white_text_over_blue="\[\033[01;43m\]"
+# white_text_over_purple="\[\033[01;43m\]"
+# white_text_over_cyan="\[\033[01;43m\]"
+# white_text_over_gray="\[\033[01;43m\]"
+# white_text_over_yellow="\[\033[01;43m\]"
 
 #-------------------=== Annotations ===-------------------------------
 # * `command -v <cmd>` is faster thatn `which <cmd>`, so keet it
@@ -81,17 +123,17 @@ function config_history_format() {
 }
 
 function config_extensions() {
-    export __xelabash_git_bin
-    export __xelabash_kubectl_bin
-    __xelabash_git_bin="$(command -v git)"
-    __xelabash_kubectl_bin="$(command -v kubectl)"
+    export bin_git
+    export bin_kubectl
+    bin_git="$(command -v git)"
+    bin_kubectl="$(command -v kubectl)"
 }
 
 function config_my_bin() {
     if [[ "$my_bin" == "false" ]]; then
         :
     elif [[ "$my_bin" == "true" ]]; then
-        for config in "$(dirname "$(__xelabash_path)")"/config.d/*.sh; do
+        for config in "$(dirname "$(miniprompt_path)")"/config.d/*.sh; do
             source "$config"
         done
 
@@ -101,16 +143,17 @@ function config_my_bin() {
         fi
         done
     else
-        echo -e "Variable 'my_bin' was set to '$my_bin', which is not a valid value. It can only be set to 'true' or 'false' in $this_basename located at $0."
+        echo -e "Variable 'my_bin' was set to '$my_bin', which is not a valid value. It can only be set to 'true' or 'false' in $this located at `miniprompt_path`."
     fi
 }
 
 # config funcs 'main'
 function configure_miniprompt() {
-    export __xelabash_PS1_last_exit
-    export __xelabash_PS1_prefix
-    export __xelabash_PS1_content
-    export __xelabash_PS1_suffix
+
+    export PS1_previous_exit
+    export PS1_prefix
+    export PS1_content
+    export PS1_suffix
 
     config_autocomplete
     config_dircolors
@@ -120,34 +163,34 @@ function configure_miniprompt() {
 }
 
 
-__xelabash_path() {
-  echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/$(basename "${BASH_SOURCE[0]}")"
+function miniprompt_path() {
+    echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/$(basename "${BASH_SOURCE[0]}")"
 }
 
 
 
 # prepares the prompt variables
 function reset_prompt() {
-    export __xelabash_PS1_last_exit="$?"
-    export __xelabash_PS1_prefix=''
-    __xelabash_PS1_prefix='\[\e]0;\w\a\]'   # window title
-    export __xelabash_PS1_content='[\[\e[3;33m\]\w\[\e[0m\]]\[\e[1;32m\]'
+    export PS1_previous_exit="$?"
+    export PS1_prefix=''
+    PS1_prefix='\[\e]0;\w\a\]'   # window title
+    export PS1_content='[\[\e[3;33m\]\w\[\e[0m\]]\[\e[1;32m\]'
 
     # examples for PS1:
-        # export __xelabash_PS1_content='\[\033[00m\]\w\[\e[0m\]\[\e[1;32m\]'
-        # export __xelabash_PS1_content='\[\e[1m\]\w\[\e[0m\]'
+        # export PS1_content='\[\033[00m\]\w\[\e[0m\]\[\e[1;32m\]'
+        # export PS1_content='\[\e[1m\]\w\[\e[0m\]'
 
-    export __xelabash_PS1_suffix=' ${success_symbol}\[\e[0m\] '
+    export PS1_suffix=' ${success_symbol}\[\e[0m\] '
 }
 
-# make __xelabash_PS1_suffix red if the previous command failed
+# make PS1_suffix red if the previous command failed
 function add_exit_code_to_prompt() {
     if [[ "$add_exit" == "true" ]]; then
-        [ "$__xelabash_PS1_last_exit" -ne 0 ] && __xelabash_PS1_suffix="${light_red} ${error_symbol} ${reset}"
+        [ "$PS1_previous_exit" -ne 0 ] && PS1_suffix="${light_red} ${error_symbol} ${reset}"
     elif [[ "$add_exit" == "false" ]]; then
         :
     else
-        echo -e "Configuration variable 'add_exit' was set to '$add_exit', which is not a valid value. It can either be set to 'true' or 'false' in $this_basename located at $0, otherwise you'll see this message"
+        echo -e "Configuration variable 'add_exit' was set to '$add_exit', which is not a valid value. It can either be set to 'true' or 'false' in $this located at `miniprompt_path`, otherwise you'll see this message"
     fi
 }
 
@@ -157,7 +200,8 @@ function add_git_to_prompt() {
     local branch
     local status_count
 
-    if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = 'true' ] || [ "$(git rev-parse --is-inside-git-dir 2>/dev/null)" = 'true' ]; then
+    # if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = 'true' ] || [ "$(git rev-parse --is-inside-git-dir 2>/dev/null)" = 'true' ]; then
+    if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = 'true' ]]; then
 
         branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
         [ -z "$branch" ] && branch='(no branch)'
@@ -176,7 +220,16 @@ function add_git_to_prompt() {
         else
             prompt="\[\e[36m\]${branch}\[\e[0m\]"
         fi
-        __xelabash_PS1_content="${__xelabash_PS1_content:-} ${prompt}"
+        PS1_content="${PS1_content:-} ${prompt}"
+    fi
+}
+
+function add_git_to_prompt2() {
+    if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = 'true' ]]; then
+        # local branch=`git branch --show-current`
+        PS1_content="${PS1_content:-} (`git branch --show-current`)"
+    else
+        :
     fi
 }
 
@@ -186,7 +239,24 @@ function add_kube_to_prompt() {
     local namespace
     context="$(kubectl config view -o=jsonpath='{.current-context}')"
     namespace="$(kubectl config view -o=jsonpath="{.contexts[?(@.name==\"${context}\")].context.namespace}")"
-    __xelabash_PS1_content="${__xelabash_PS1_content:-} \[\e[34m\]${context}${namespace:+:$namespace}\[\e[0m\]"
+    PS1_content="${PS1_content:-} \[\e[34m\]${context}${namespace:+:$namespace}\[\e[0m\]"
+}
+
+
+# prepend user@hostname to prompt, if connected via ssh
+function add_ssh_to_prompt() {
+    if [[ "$ssh_prompt" == "true" ]]; then
+        if [[ -n "$SSH_CONNECTION" ]]; then
+            PS1_prefix='\[\e]0;\u@\h \w\a\]'
+            PS1_content="\[\e[2m\]\u@\h\[\e[0m\] ${PS1_content}"
+        else
+            :
+        fi
+    elif [[ "$ssh_prompt" == "false" ]]; then
+        :
+    else
+        echo -e "Configuration variable 'ssh_prompt' was set to '$ssh_prompt', which is not a valid value. It can either be set to 'true' or 'false' in $this located at `miniprompt_path`, otherwise you'll see this message"
+    fi
 }
 
 function test_extension() {
@@ -197,28 +267,13 @@ function test_extension() {
 
     if [[ "$extension_boolean" == "false" ]]; then
         :
-    elif [[ "$extension_boolean" == "true" ]] && [[ -z "$cmd" ]]; then
+    elif [[ "$extension_boolean" == "true" ]] && [[ ! -z "$bin_cmd" ]]; then
         eval $if_true
     else
-        echo -e "Extension '$extension_name' was set to '$extension_boolean', which is not a valid value. It can either be set to 'true' or 'false' in $this_basename located at $0."
+        echo -e "Extension '$extension_name' was set to '$extension_boolean', which is not a valid value. It can either be set to 'true' or 'false' in $this located at `miniprompt_path`."
     fi
 }
 
-# prepend user@hostname to prompt, if connected via ssh
-function add_ssh_to_prompt() {
-    if [[ "$ssh_prompt" == "true" ]]; then
-        if [[ -n "$SSH_CONNECTION" ]]; then
-            __xelabash_PS1_prefix='\[\e]0;\u@\h \w\a\]'
-            __xelabash_PS1_content="\[\e[2m\]\u@\h\[\e[0m\] ${__xelabash_PS1_content}"
-        else
-            :
-        fi
-    elif [[ "$ssh_prompt" == "false" ]]; then
-        :
-    else
-        echo -e "Configuration variable 'ssh_prompt' was set to '$ssh_prompt', which is not a valid value. It can either be set to 'true' or 'false' in $this_basename located at $0, otherwise you'll see this message"
-    fi
-}
 
 # set the prompt
 function main_prompt() {
@@ -228,21 +283,27 @@ function main_prompt() {
     add_ssh_to_prompt
 
     # test extensions
-    test_extension "Git Branch" $GIT_PROMPT $__xelabash_git_bin "__xelabash_add_git_to_prompt"
-    test_extension "Kubernetes Container" $KUBU_PROMPT $__xelabash_kubectl_bin "add_kube_to_prompt"
+    if [[ "$extensions_main" == "false" ]]; then
+        :
+    elif [[ "$extensions_main" == "true" ]]; then
+        test_extension "Git Branch" $GIT_PROMPT $bin_git "add_git_to_prompt2"
+        test_extension "Kubernetes Container" $KUBE_PROMPT $bin_kubectl "add_kube_to_prompt"
+    else
+        echo -e "Configuration variable 'extensions_main' was set to '$extensions_main', which is not a valid value. It can either be set to 'true' or 'false' in $this located at `miniprompt_path`, otherwise you'll see this message"
+    fi
 
     # finally!
-    export PS1="${__xelabash_PS1_prefix:-}${__xelabash_PS1_content:-}${__xelabash_PS1_suffix:-}"
+    export PS1="${PS1_prefix:-}${PS1_content:-}${PS1_suffix:-}"
     history -a
     clean_variables
 }
 
 # clean up (unset) shared mini_prompt variables (e.g. prefix and suffix)
 function clean_variables() {
-    unset __xelabash_PS1_prefix \
-        __xelabash_PS1_content \
-        __xelabash_PS1_suffix \
-        __xelabash_PS1_last_exit
+    unset PS1_prefix \
+        PS1_content \
+        PS1_suffix \
+        PS1_previous_exit
 }
 
 # initialize the program
@@ -260,7 +321,7 @@ if [[ "$skip_init" == "false" ]]; then
 elif [[ "$skip_init" == "true" ]]; then
     : # skips initialization
 else
-    echo -e "Configuration variable 'skip_init' was set to '$skip_init', which is not a valid value. It can either be set to 'true' or 'false' in $this_basename located at $0, otherwise you'll see this message"
+    echo -e "Configuration variable 'skip_init' was set to '$skip_init', which is not a valid value. It can either be set to 'true' or 'false' in $this located at `miniprompt_path`, otherwise you'll see this message"
 fi
 
 

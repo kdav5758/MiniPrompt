@@ -1,13 +1,4 @@
-# shellcheck shell=bash source="$HOME"
-
-case "$(__xelabash_os)" in
-  *bsd|bsd*|darwin*)
-    alias ls='ls -G'
-    ;;
-  linux*)
-    alias ls='ls --color=if-tty'
-    ;;
-esac
+#!/bin/bash
 
 alias la='ls -a'
 alias ll='ls -lah'
