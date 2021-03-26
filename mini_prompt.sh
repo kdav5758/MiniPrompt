@@ -13,8 +13,14 @@
 
 
 #-------------------=== Prompt Config ===-------------------------------
+
+# prompt symbols
 success_symbol="λ"
 error_symbol="✗"
+git_branch_icon=""
+kube_icon=""
+
+# other
 reset="\[\e[m\]"
 this="$(basename "${BASH_SOURCE[0]}")"
 skip_init=false
@@ -210,7 +216,7 @@ function add_exit_code_to_prompt() {
 function add_git_to_prompt() {
     if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = 'true' ]]; then
         # local branch=`git branch --show-current`
-        PS1_content="${PS1_content:-} (`git branch --show-current`)"
+        PS1_content="${PS1_content:-} (${git_branch_icon} `git branch --show-current`)"
     else
         :
     fi
@@ -222,7 +228,7 @@ function add_kube_to_prompt() {
     local namespace
     context="$(kubectl config view -o=jsonpath='{.current-context}')"
     namespace="$(kubectl config view -o=jsonpath="{.contexts[?(@.name==\"${context}\")].context.namespace}")"
-    PS1_content="${PS1_content:-} \[\e[34m\]${context}${namespace:+:$namespace}\[\e[0m\]"
+    PS1_content="${PS1_content:-} ${kube_icon}\[\e[34m\]${context}${namespace:+:$namespace}\[\e[0m\]"
 }
 
 
