@@ -3,7 +3,6 @@
 ![xelabash](images/base.png)
 
 **Minimalist Prompt**, a simple yet *functional* bash prompt.
-A few simple, no-nonsense, non-distracting additions to the standard bash prompt.
 
 ## Features
 
