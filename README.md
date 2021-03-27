@@ -1,38 +1,38 @@
-> # MiniPrompt
+# MiniPrompt
 
 <p align="center">
   <img
-    width="400"
-    src="https://raw.githubusercontent.com/starship/starship/master/media/logo.png"
-    alt="Starship – Cross-shell prompt"
+    width="150"
+    src="https://i.imgur.com/4APsKxj.png"
+    alt="MiniPrompt, a simple yet function rich bash prompt!"
   />
 </p>
 
 <p align="center">
-  <a href="https://github.com/starship/starship/actions"
+  <a href="https://github.com/kdav5758/MiniPrompt"
     ><img
-      src="https://img.shields.io/github/workflow/status/starship/starship/Main workflow/master?label=workflow&style=flat-square"
-      alt="GitHub Actions workflow status"
+      src="https://img.shields.io/github/repo-size/kdav5758/MiniPrompt"
+      alt="GitHub repository size"
   /></a>
-  <a href="https://crates.io/crates/starship"
+  <a href="https://github.com/kdav5758/MiniPrompt/blob/dev/LICENSE"
     ><img
-      src="https://img.shields.io/crates/v/starship?style=flat-square"
-      alt="Crates.io version"
+      src="https://img.shields.io/badge/license-GPL-blue"
+      alt="GPL License"
   /></a>
-  <a href="https://repology.org/project/starship/versions"
+  <a href="https://github.com/kdav5758/MiniPrompt/releases"
     ><img
-      src="https://img.shields.io/repology/repositories/starship?label=in%20repositories&style=flat-square"
-      alt="Packaging status"/></a
+      src="https://img.shields.io/github/downloads/kdav5758/MiniPrompt/total"
+      alt="Amount of downloads"/></a
   ><br />
-  <a href="https://discord.gg/starship"
+  <a href="https://github.com/kdav5758/MiniPrompt/tags"
     ><img
-      src="https://img.shields.io/discord/567163873606500352?label=discord&logoColor=white&style=flat-square"
-      alt="Chat on Discord"
+      src="https://img.shields.io/github/v/tag/kdav5758/MiniPrompt"
+      alt="Latest tag"
   /></a>
-  <a href="https://twitter.com/StarshipPrompt"
+  <a href="https://github.com/kdav5758/MiniPrompt/tree/dev"
     ><img
-      src="https://img.shields.io/badge/twitter-@StarshipPrompt-1DA1F3?style=flat-square"
-      alt="Follow @StarshipPrompt on Twitter"
+      src="https://img.shields.io/github/last-commit/kdav5758/MiniPrompt/dev"
+      alt="Latest commit on dev branch"
   /></a>
 </p>
 
@@ -44,9 +44,26 @@
   <a href="https://starship.rs/config/">Configuration</a>
 </p>
 
-![xelabash](images/base.png)
+<img
+  src="https://raw.githubusercontent.com/starship/starship/master/media/demo.gif"
+  alt="Starship with iTerm2 and the Snazzy theme"
+  width="50%"
+  align="right"
+/>
 
-**Minimalist Prompt**, a simple yet *functional* bash prompt.
+**Minimalist Prompt**, a simple and lightning fast, yet, *feature rich*, bash prompt
+
+- **Fast:** it's fast – _really really_ fast! 🚀
+- **Customizable:** configure every aspect of your prompt.
+- **Universal:** works on any shell, on any operating system.
+- **Intelligent:** shows relevant information at a glance.
+- **Feature rich:** support for all your favorite tools.
+- **Easy:** quick to install – start using it in minutes.
+
+<!--
+![xelabash](images/base.png)
+**Minimalist Prompt**, a simple yet *feature rich* bash prompt.
+-->
 
 ## Features
 

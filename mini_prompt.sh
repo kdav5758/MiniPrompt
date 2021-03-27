@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# __  __ _       _ _____                           _
+ # __  __ _       _ _____                           _
 # |  \/  (_)     (_)  __ \                         | |
 # | \  / |_ _ __  _| |__) | __ ___  _ __ ___  _ __ | |_
 # | |\/| | | '_ \| |  ___/ '__/ _ \| '_ ` _ \| '_ \| __|
@@ -24,7 +24,8 @@ kube_icon=""
 reset="\[\e[m\]"
 this="$(basename "${BASH_SOURCE[0]}")"
 skip_init=false
-usr_content="\w"
+# usr_content="\w"
+usr_content="[\[\e[3;33m\]\w\[\e[0m\]]\[\e[1;32m\]"
 
 # main functionalities
 ssh_prompt=true
@@ -192,7 +193,8 @@ function miniprompt_path() {
 function reset_prompt() {
     export PS1_previous_exit="$?"
     export PS1_prefix="\[\e]0;\w\a\]"   # window title
-    export PS1_content="[\[\e[3;33m\]${usr_content}\[\e[0m\]]\[\e[1;32m\]"
+    # export PS1_content="[\[\e[3;33m\]${usr_content}\[\e[0m\]]\[\e[1;32m\]"
+    export PS1_content="${usr_content}"
 
     # examples for PS1:
         # export PS1_content='\[\033[00m\]\w\[\e[0m\]\[\e[1;32m\]'

@@ -105,7 +105,7 @@ if [[ -n "$1" ]]; then
             ;;
         "-h"|"--help")
             echo "$script_help"
-            exit 0
+            # exit 0    # causes shell to close
             ;;
         *)
             echo "command was not recognized"
