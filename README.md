@@ -494,7 +494,7 @@ As you can see, by default everything but `add_exit` is turned off. The idea beh
 - If `$prompt_init` is set to false, MiniPrompt won't start.
 
 ## ☁️ Inspirations
-The following ones are the projects that inspired the creating of MiniPrompt. If possible go check them out to see why are they so amazing ;)
+The following ones are the projects that inspired the creating of MiniPrompt. If possible go check them out to see why they are so amazing ;)
 - [aelindeman/xelabash](https://github.com/aelindeman/xelabash): Bash prompt with minimal functions.
 - [starship/starship](https://github.com/starship/starship): Customizable cross-shell prompt.
 - [agkozak/polyglot](https://github.com/agkozak/polyglot): ASCII-only cross-shell git prompt.
