@@ -501,5 +501,21 @@ $ sudo chmod 775 /usr/local/bin/
 
 If this fails, try with `/usr/bin/`, BUT be careful, because here are stored most of your programs' binaries
 
+- Can I make it even faster?
+
+HELL YEAH! There are some simple things you can do:
+
+- Install a GPU accelerated terminal, like [Kitty Terminal](https://github.com/kovidgoyal/kitty) or [Alacritty](https://github.com/alacritty/alacritty).
+- Remove the original `$PS1` from your `~.bashrc` file. In most cases, you'll be looking for something like this:
+
+```bash
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1="\[\033[01;32m\]\w\[\033[00m\]\[\033[01;39m\] >\[\033[00m\] "
+fi
+unset color_prompt force_color_prompt
+```
+
 ## ⚠️ Reporting Issues
 Issues are used to track todos, bugs, feature requests, and more, in this case this project has no special way for making issues, thus you can simply go to the [Issues section](https://github.com/kdav5758/MiniPrompt/issues).
