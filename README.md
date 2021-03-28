@@ -14,6 +14,11 @@
       src="https://img.shields.io/github/repo-size/kdav5758/MiniPrompt"
       alt="GitHub repository size"
   /></a>
+  <a href="https://github.com/kdav5758/MiniPrompt/issues"
+    ><img
+      src="https://img.shields.io/github/issues/kdav5758/MiniPrompt"
+      alt="Issues"
+  /></a>
   <a href="https://github.com/kdav5758/MiniPrompt/blob/main/LICENSE"
     ><img
       src="https://img.shields.io/badge/license-GPL-blue"
@@ -33,6 +38,11 @@
     ><img
       src="https://img.shields.io/github/last-commit/kdav5758/MiniPrompt/dev"
       alt="Latest commit on dev branch"
+  /></a>
+  <a href="https://github.com/kdav5758/MiniPrompt/stargazers"
+    ><img
+      src="https://img.shields.io/github/stars/kdav5758/MiniPrompt"
+      alt="Repository's starts"
   /></a>
 </p>
 
