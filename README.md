@@ -1,9 +1,7 @@
-# MiniPrompt
-
 <p align="center">
   <img
-    width="150"
-    src="https://i.imgur.com/4APsKxj.png"
+    width="360"
+    src="https://i.imgur.com/bGS5btG.png"
     alt="MiniPrompt, a simple yet function rich bash prompt!"
   />
 </p>
