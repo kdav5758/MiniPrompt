@@ -27,12 +27,7 @@
             src="https://img.shields.io/github/downloads/kdav5758/MiniPrompt/total"
             alt="Amount of downloads"/></a
     ><br />
-    <a href="https://github.com/kdav5758/MiniPrompt/releases"
-        ><img
-            src="https://img.shields.io/github/v/release/kdav5758/MiniPrompt"
-            alt="Latest release"
-    /></a>
-        <a href="https://github.com/kdav5758/MiniPrompt/tree/dev"
+    <a href="https://github.com/kdav5758/MiniPrompt/tree/dev"
             ><img
             src="https://img.shields.io/github/last-commit/kdav5758/MiniPrompt/dev"
             alt="Latest commit on dev branch"
