@@ -1,47 +1,47 @@
 <p align="center">
-  <img
-    width="360"
-    src="https://i.imgur.com/bGS5btG.png"
-    alt="MiniPrompt, a simple yet function rich bash prompt!"
-  />
+    <img
+        width="360"
+        src="https://i.imgur.com/bGS5btG.png"
+        alt="MiniPrompt, a simple yet function rich bash prompt!"
+    />
 </p>
 
 <p align="center">
-  <a href="https://github.com/kdav5758/MiniPrompt"
-    ><img
-      src="https://img.shields.io/github/repo-size/kdav5758/MiniPrompt"
-      alt="GitHub repository size"
-  /></a>
-  <a href="https://github.com/kdav5758/MiniPrompt/issues"
-    ><img
-      src="https://img.shields.io/github/issues/kdav5758/MiniPrompt"
-      alt="Issues"
-  /></a>
-  <a href="https://github.com/kdav5758/MiniPrompt/blob/main/LICENSE"
-    ><img
-      src="https://img.shields.io/badge/license-GPL-blue"
-      alt="GPL License"
-  /></a>
-  <a href="https://github.com/kdav5758/MiniPrompt/releases"
-    ><img
-      src="https://img.shields.io/github/downloads/kdav5758/MiniPrompt/total"
-      alt="Amount of downloads"/></a
-  ><br />
-  <a href="https://github.com/kdav5758/MiniPrompt/tags"
-    ><img
-      src="https://img.shields.io/github/v/tag/kdav5758/MiniPrompt"
-      alt="Latest tag"
-  /></a>
-  <a href="https://github.com/kdav5758/MiniPrompt/tree/dev"
-    ><img
-      src="https://img.shields.io/github/last-commit/kdav5758/MiniPrompt/dev"
-      alt="Latest commit on dev branch"
-  /></a>
-  <a href="https://github.com/kdav5758/MiniPrompt/stargazers"
-    ><img
-      src="https://img.shields.io/github/stars/kdav5758/MiniPrompt"
-      alt="Repository's starts"
-  /></a>
+    <a href="https://github.com/kdav5758/MiniPrompt"
+        ><img
+            src="https://img.shields.io/github/repo-size/kdav5758/MiniPrompt"
+            alt="GitHub repository size"
+    /></a>
+    <a href="https://github.com/kdav5758/MiniPrompt/issues"
+        ><img
+            src="https://img.shields.io/github/issues/kdav5758/MiniPrompt"
+            alt="Issues"
+    /></a>
+    <a href="https://github.com/kdav5758/MiniPrompt/blob/main/LICENSE"
+        ><img
+            src="https://img.shields.io/badge/license-GPL-blue"
+            alt="GPL License"
+    /></a>
+    <a href="https://github.com/kdav5758/MiniPrompt/releases"
+        ><img
+            src="https://img.shields.io/github/downloads/kdav5758/MiniPrompt/total"
+            alt="Amount of downloads"/></a
+    ><br />
+    <a href="https://github.com/kdav5758/MiniPrompt/releases"
+        ><img
+            src="https://img.shields.io/github/v/release/kdav5758/MiniPrompt"
+            alt="Latest release"
+    /></a>
+        <a href="https://github.com/kdav5758/MiniPrompt/tree/dev"
+            ><img
+            src="https://img.shields.io/github/last-commit/kdav5758/MiniPrompt/dev"
+            alt="Latest commit on dev branch"
+    /></a>
+    <a href="https://github.com/kdav5758/MiniPrompt/stargazers"
+        ><img
+            src="https://img.shields.io/github/stars/kdav5758/MiniPrompt"
+            alt="Repository's starts"
+    /></a>
 </p>
 
 <p align="center">
@@ -64,11 +64,11 @@
 
 **Minimalist Prompt**, a decluttered and lightning fast, yet, *feature rich*, bash prompt!
 
-- **Fast:** uses bash scripting language, making it *hella* fast!
+- **Fast:** does more with *less*!
 - **Customizable:** all the variables are in a single file.
-- **Feature rich:** regardless of being a "bare bones prompt", has everything that's needed.
+- **Feature-rich:** regardless of being a "bare bones prompt", has everything that's needed.
 - **Easy:** quick installation and configuration.
-- **Organized:** everything is and depends on one file.
+- **Organized:** everything is and depends on one single file.
 
 </div>
 

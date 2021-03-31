@@ -12,7 +12,7 @@
 # Minimalist Prompt, a decluttered and lightning fast, yet, feature rich, bash prompt!
 
 # NAME:  MiniPrompt
-# VER:   v0.1.7-alpha
+# VER:   v0.2.1-beta
 # PLAT:  linux-64, MacOS (w/ bash)
 
 #-------------------=== Prompt Config ===-------------------------------
@@ -163,7 +163,7 @@ function config_my_bin() {
             fi
         done
     else
-        echo -e "Variable 'my_bin' was set to '$my_bin', which is not a valid value. It can only be set to 'true' or 'false' in $this located at `miniprompt_path`."
+        echo -e "Variable 'my_bin' was set to '$my_bin', which is not a valid value. It can only be set to 'true' or 'false' in $this"
     fi
 }
 
@@ -182,10 +182,11 @@ function configure_miniprompt() {
     config_my_bin
 }
 
+# uncomment if you want miniprompt to be capturing the dir where it's located at all the time
 # stablish path to the prompt
-function miniprompt_path() {
-    echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/$(basename "${BASH_SOURCE[0]}")"
-}
+# function miniprompt_path() {
+#     echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/$(basename "${BASH_SOURCE[0]}")"
+# }
 
 # prepares the prompt variables
 function reset_prompt() {
@@ -209,7 +210,7 @@ function add_exit_code_to_prompt() {
     elif [[ "$add_exit" == "false" ]]; then
         :
     else
-        echo -e "Configuration variable 'add_exit' was set to '$add_exit', which is not a valid value. It can either be set to 'true' or 'false' in $this located at `miniprompt_path`, otherwise you'll see this message"
+        echo -e "Configuration variable 'add_exit' was set to '$add_exit', which is not a valid value. It can either be set to 'true' or 'false' in $this."
     fi
 }
 
@@ -266,10 +267,9 @@ function test_extension() {
     elif [[ "$extension_boolean" == "true" ]] && [[ ! -z "$bin_cmd" ]]; then
         eval $if_true
     else
-        echo -e "Extension '$extension_name' was set to '$extension_boolean', which is not a valid value. It can either be set to 'true' or 'false' in $this located at `miniprompt_path`."
+        echo -e "Extension '$extension_name' was set to '$extension_boolean', which is not a valid value. It can either be set to 'true' or 'false' in $this"
     fi
 }
-
 
 # set the prompt
 function main_prompt() {
@@ -285,7 +285,7 @@ function main_prompt() {
         test_extension "SSH Prompt" $SSH_PROMPT $bin_ssh "add_ssh_to_prompt"
         test_extension "Kubernetes Container" $KUBE_PROMPT $bin_kubectl "add_kube_to_prompt"
     else
-        echo -e "Configuration variable 'extensions_main' was set to '$extensions_main', which is not a valid value. It can either be set to 'true' or 'false' in $this located at `miniprompt_path`, otherwise you'll see this message"
+        echo -e "Configuration variable 'extensions_main' was set to '$extensions_main', which is not a valid value. It can either be set to 'true' or 'false' in $this."
     fi
 
     # finally!
@@ -311,13 +311,14 @@ function __init() {
     fi
 }
 
+
 # initialization
 if [[ "$skip_init" == "false" ]]; then
     __init
 elif [[ "$skip_init" == "true" ]]; then
     : # skips initialization
 else
-    echo -e "Configuration variable 'skip_init' was set to '$skip_init', which is not a valid value. It can either be set to 'true' or 'false' in $this located at `miniprompt_path`, otherwise you'll see this message"
+    echo -e "Configuration variable 'skip_init' was set to '$skip_init', which is not a valid value. It can either be set to 'true' or 'false' in $this."
 fi
 
 
