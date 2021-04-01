@@ -1,8 +1,0 @@
-#!/bin/sh
-if [ -x "$(command -v uuidgen)" ]; then
-  uuidgen "$@"
-elif [ -e "$/proc/sys/kernel/random/uuid" ]; then
-  cat "$/proc/sys/kernel/random/uuid"
-else
-  python -c 'import uuid; print(uuid.uuid4())'
-fi
