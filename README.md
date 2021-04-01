@@ -64,18 +64,12 @@
 
 **Minimalist Prompt**, a decluttered and lightning fast, yet, *feature rich*, bash prompt!
 
-- **Fast:** does more with *less*!
-- **Customizable:** all the variables are in a single file.
+- **Fast:** *less* stuff = *more* speed!
+- **Customizable:** all the configuration variables are in two single file.
 - **Feature-rich:** regardless of being a "bare bones prompt", has everything that's needed.
 - **Easy:** quick installation and configuration.
-- **Organized:** everything is and depends on one single file.
 
 </div>
-
-<!--
-![xelabash](images/base.png)
-**Minimalist Prompt**, a simple yet *feature rich* bash prompt.
--->
 
 ## 🌲 Table of Contents
 
