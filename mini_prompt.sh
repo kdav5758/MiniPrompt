@@ -12,7 +12,7 @@
 # Minimalist Prompt, a decluttered and lightning fast, yet, feature rich, bash prompt!
 
 # NAME:  MiniPrompt
-# VER:   v0.2.1-beta
+# VER:   v0.3.1-beta
 # PLAT:  linux-64, MacOS (w/ bash)
 
 #-------------------=== Prompt Config ===------------------------------->>>
