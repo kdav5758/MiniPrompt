@@ -151,12 +151,19 @@ function add_exit_code_to_prompt() {
 
 # find and export each exten' executable
 function config_extensions() {
-    export bin_git
-    export bin_kubectl
-    export bin_ssh
-    bin_git="$(command -v git)"
-    bin_ssh="$(command -v ssh)"
-    bin_kubectl="$(command -v kubectl)"
+    # export bin_git
+    # export bin_kubectl
+    # export bin_ssh
+    # bin_git="$(command -v git)"
+    # bin_ssh="$(command -v ssh)"
+    # bin_kubectl="$(command -v kubectl)"
+
+    export bin_git="/usr/bin/git"
+    export bin_kubectl="/usr/bin/kubectl"
+    export bin_ssh="/usr/bin/ssh"
+    # bin_git="$(command -v git)"
+    # bin_ssh="$(command -v ssh)"
+    # bin_kubectl="$(command -v kubectl)"
 }
 
 # display git branch of current repo, if located at one
@@ -236,12 +243,15 @@ function clean_variables() {
 
 # initialize the program
 function __init() {
-    if [[ "$-" == *i* ]]; then
-        configure_miniprompt
-        if [[ "$PROMPT_COMMAND" != *main_prompt* ]]; then
-          export PROMPT_COMMAND="main_prompt;$PROMPT_COMMAND"
-        fi
-    fi
+    # if [[ "$-" == *i* ]]; then
+    #     configure_miniprompt
+    #     if [[ "$PROMPT_COMMAND" != *main_prompt* ]]; then
+    #         export PROMPT_COMMAND="main_prompt;$PROMPT_COMMAND"
+    #     fi
+    # fi
+
+    configure_miniprompt
+    export PROMPT_COMMAND="main_prompt;$PROMPT_COMMAND"
 }
 
 
@@ -253,5 +263,4 @@ elif [[ "$skip_init" == "true" ]]; then
 else
     echo -e "Configuration variable 'skip_init' was set to '$skip_init', which is not a valid value. It can either be set to 'true' or 'false' in $this."
 fi
-
 
