@@ -19,8 +19,8 @@
     /></a>
     <a href="https://github.com/kdav5758/MiniPrompt/blob/main/LICENSE"
         ><img
-            src="https://img.shields.io/badge/license-GPL-blue"
-            alt="GPL License"
+            src="https://img.shields.io/github/license/kdav5758/MiniPrompt"
+            alt="License"
     /></a>
     <a href="https://github.com/kdav5758/MiniPrompt/releases"
         ><img
